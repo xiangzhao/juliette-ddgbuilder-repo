@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<!--
+
+  @(#)package.html	1.60 98/01/27
+
+  
+
+-->
+</head>
+<body bgcolor="white">
+<p>
+The laser.ddg.ljil package contains classes that allow for 
+building a DDG for processes written in Little-JIL.  The classes in this
+package are implementations for the interface in laser.ddg.
+</p>
+
+<p>
+Little-JIL steps correspond to procedures in DDG terminology.  A non-leaf step is represented
+with a StartStepInstanceNode, 0 or more IntermStepInstanceNodes and a FinishStepInstanceNode.
+Leaf steps are represented with a single StepInstanceNode. 
+</p>
+
+<p>
+If a step has a prerequisite and/or a postrequisite, the DDG should contain Virtual nodes
+(start, intermediate and finish) that corresponds to an imaginary sequential step whose
+children are the prerequisite, step to which requisites are attached and the postrequisite,
+in that order.  This is necessary to capture the correct data and control flow 
+between a node and its requisites.
+</p>
+
+
+
+<!-- Put @see and @since tags down here. -->
+@see laser.ddg
+
+</body>
+</html>

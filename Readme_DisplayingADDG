@@ -1,0 +1,3 @@
+To display an entire DDG, run FileChooserDemo, select "Display a DDG...", navigate to the location of an RDF database containing a DDG, select its directory, and click "Display DDG".
+
+To skip the GUI and simply display a DDG, hardwire the location of the DDG into the DisplayRdfDb class and run it. 

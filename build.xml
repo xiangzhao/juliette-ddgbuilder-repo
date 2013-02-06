@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="juliette-ddgbuilder" default="jrunner" basedir="."> 
+  <property name="jardir" value="${user.home}/Documents/JarFiles"/>
+  <property name="ljiljars" value="${user.home}/Documents/LJilJarFiles/"/>
+  <property name="jrunner" value="${ljiljars}/jrunner/"/>
+  <property name="tdblib" value="${jardir}/jena-tdb-0.9.0-incubating/lib"/>
+
+  <target name="DDG-Builder">  
+  	<delete file="ddgbuilder.jar" />
+  	<jar destfile="ddgbuilder.jar">
+  		<!-- The Little-JIL specific code -->
+  		<fileset dir="bin" includes="**/*.class" />
+  		
+  		<!-- The Little-JIL agnostic DDG code -->
+  		<fileset dir="../ddg-official" includes="**/*.class" />
+  	</jar>
+  </target>
+	
+  <target name="jrunner" depends="DDG-Builder">
+  	<jar destfile="tmp_jrunner.jar">
+  		<manifest>
+  		  <attribute name="Main-Class"
+  		  		value="laser.juliette.driver.Driver"/>
+  		</manifest>
+  		<!-- The version of jrunner that calls the code to create DDGS -->
+  		<zipfileset includes="**/*" src="${ljiljars}/jrunner-sandy.jar"/>
+  		
+  		<!-- The code to actually build the DDGs -->
+        <zipfileset includes="**/*.class" src="ddgbuilder.jar"/>
+  		
+  		<!-- The display package that is used -->
+        <zipfileset includes="**/*.class" src="${jardir}/prefuse.jar"/>
+  		
+  		<!-- The code to make DDGs persistent with Jena.  It's important to include all files,
+  		     not just the class files -->
+  		<zipfileset includes="**/*" src="${tdblib}/jena-tdb-0.9.0-incubating.jar"/>
+  		<zipfileset includes="**/*" src="${tdblib}/jena-arq-2.9.0-incubating.jar"/>
+  		<zipfileset includes="**/*" src="${tdblib}/jena-core-2.7.0-incubating.jar"/>
+  		<zipfileset includes="**/*" src="${tdblib}/slf4j-api-1.6.4.jar"/>
+  		<zipfileset includes="**/*" src="${tdblib}/slf4j-log4j12-1.6.4.jar"/>
+  		<zipfileset includes="**/*" src="${tdblib}/log4j-1.2.16.jar"/>
+  		<zipfileset includes="**/*" src="${tdblib}/xercesImpl-2.10.0.jar"/>
+  		<zipfileset includes="**/*" src="${tdblib}/xml-apis-1.4.01.jar"/>
+  		<zipfileset includes="**/*" src="${tdblib}/commons-codec-1.5.jar"/>
+  		<zipfileset includes="**/*" src="${tdblib}/httpclient-4.1.2.jar"/>
+  		<zipfileset includes="**/*" src="${tdblib}/httpcore-4.1.3.jar"/>
+  		<zipfileset includes="**/*" src="${tdblib}/icu4j-3.4.4.jar"/>
+  		<zipfileset includes="**/*" src="${tdblib}/jena-iri-0.9.0-incubating.jar"/>
+   	</jar>
+  	<move file="tmp_jrunner.jar" tofile="${ljiljars}/jrunner.jar"/>
+  </target>
+  	
+</project>
